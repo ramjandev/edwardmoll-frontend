@@ -7,7 +7,7 @@ const ReadySection = () => {
   return (
     <div className="bg-[#040C16] ">
       <CommonSpace>
-        <CommonWrapper className=" max-w-7xl! mx-auto flex flex-col items-center  ">
+        <CommonWrapper className=" max-w-7xl! mx-auto flex flex-col items-center justify-center  ">
           <SectionHeader
             subtitle="Ready When You Are"
             title="See Your Flat Rate Now."
@@ -16,7 +16,7 @@ const ReadySection = () => {
             className="text-center flex flex-col items-center space-y-4"
           />
 
-          <div className="flex  items-center justify-center  pt-6">
+          <div className="flex  items-center justify-center  pt-6 w-full">
             <PhoneActionButton />
           </div>
         </CommonWrapper>

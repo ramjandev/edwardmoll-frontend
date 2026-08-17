@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { z } from "zod";
@@ -68,6 +69,7 @@ const ContactArea = () => {
 
   const onSubmitMessage = (data: ContactFields) => {
     reset();
+    console.log("data", data);
   };
   return (
     <section className="">
@@ -186,9 +188,43 @@ const ContactArea = () => {
                 </div>
 
                 <div className="pt-2">
-                  <CommonButton size="xl" type="submit" className="w-full!">
-                    Send message
-                  </CommonButton>
+                  <motion.div
+                    className="relative"
+                    whileHover={{ scale: 1.04 }}
+                    whileTap={{ scale: 0.97 }}
+                  >
+                    {/* Animated glow */}
+                    <motion.div
+                      className="absolute -inset-1 rounded-md blur-md pointer-events-none"
+                      animate={{
+                        opacity: [0.2, 0.7, 0.2],
+                        scale: [0.95, 1.05, 0.95],
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    />
+
+                    {/* Shine sweep */}
+                    <motion.div className="absolute inset-0 overflow-hidden rounded-md pointer-events-none">
+                      <motion.div
+                        className="absolute top-0 -left-[100%] h-full w-[60%] skew-x-[-20deg] bg-white/20"
+                        animate={{ left: ["-100%", "160%"] }}
+                        transition={{
+                          duration: 2.5,
+                          repeat: Infinity,
+                          repeatDelay: 1.5,
+                          ease: "easeInOut",
+                        }}
+                      />
+                    </motion.div>
+
+                    <CommonButton size="xl" type="submit" className="w-full!">
+                      Send message
+                    </CommonButton>
+                  </motion.div>
                 </div>
               </form>
             </div>

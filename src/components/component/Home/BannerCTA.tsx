@@ -1,4 +1,6 @@
 import CommonButton from "@/components/shared/button/CommonButton";
+import { motion } from "framer-motion";
+
 const BannerCTA = () => {
   return (
     <section className="">
@@ -16,9 +18,43 @@ const BannerCTA = () => {
           </p>
         </div>
 
-        <CommonButton to="/quote" size="xl" className="">
-          Build My Instant Quote
-        </CommonButton>
+        <motion.div
+          className="relative"
+          whileHover={{ scale: 1.04 }}
+          whileTap={{ scale: 0.97 }}
+        >
+          {/* Animated glow */}
+          <motion.div
+            className="absolute -inset-1 rounded-md blur-md pointer-events-none"
+            animate={{
+              opacity: [0.2, 0.7, 0.2],
+              scale: [0.95, 1.05, 0.95],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          />
+
+          {/* Shine sweep */}
+          <motion.div className="absolute inset-0 overflow-hidden rounded-md pointer-events-none">
+            <motion.div
+              className="absolute top-0 -left-[100%] h-full w-[60%] skew-x-[-20deg] bg-white/20"
+              animate={{ left: ["-100%", "160%"] }}
+              transition={{
+                duration: 2.5,
+                repeat: Infinity,
+                repeatDelay: 1.5,
+                ease: "easeInOut",
+              }}
+            />
+          </motion.div>
+
+          <CommonButton size="xl" to="/quote">
+            Build My Instant Quote
+          </CommonButton>
+        </motion.div>
       </div>
     </section>
   );

@@ -22,8 +22,8 @@ const ServiceArea = () => {
     <section className=" bg-[#071425]">
       <CommonSpace>
         <CommonWrapper>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+            <div className="lg:col-span-3 space-y-6">
               <div className="space-y-3">
                 <SectionHeader
                   subtitle="Serving the entire Phoenix Metro."
@@ -45,7 +45,7 @@ const ServiceArea = () => {
               </div>
             </div>
 
-            <div className="flex flex-col  items-end justify-end gap-4 sm:gap-6 ">
+            <div className="  col-span-2 flex items-center justify-center ">
               <PhoneActionButton />
             </div>
           </div>

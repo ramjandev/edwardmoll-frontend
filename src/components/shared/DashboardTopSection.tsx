@@ -1,8 +1,8 @@
 import { ArrowLeft, Eye, EyeOff } from "lucide-react";
 import { FiUserPlus } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import CommonButton from "./CommonButton";
-import CommonHeader from "./CommonHeader";
+import CommonButton from "./button/CommonButton";
+import CommonHeader from "./header/CommonHeader";
 
 interface ManagementHeaderProps {
   title: string;

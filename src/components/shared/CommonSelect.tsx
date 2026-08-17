@@ -35,19 +35,19 @@ const CommonSelect = <T extends string>({
     <Select value={value || undefined} onValueChange={onValueChange}>
       <SelectTrigger
         style={{ minWidth: w }}
-        className={` ${className} bg-background border border-border! px-3 py-6 cursor-pointer rounded-md  text-sm  transition-all duration-200  ${
-          disabled && "opacity-50 cursor-not-allowed"
-        } `}
+        className={`${className} bg-[#071425] border border-yellow/30 px-3 py-6 cursor-pointer rounded-md text-sm text-white transition-all duration-200  focus:border-yellow data-[state=open]:border-yellow [&>span]:text-white [&_svg]:text-slate-400 ${
+          disabled ? "opacity-50 cursor-not-allowed" : ""
+        }`}
       >
         <SelectValue placeholder={placeholder || "Select an option"} />
       </SelectTrigger>
 
-      <SelectContent className="bg-white border  rounded-md shadow-md">
+      <SelectContent className="bg-[#0c1f36] border border-yellow/30 rounded-md shadow-lg">
         {item.map((option, index) => (
           <SelectItem
             key={option.value + index}
             value={option.value}
-            className="cursor-pointer px-4 py-2 hover:bg-gray-100 transition-colors rounded"
+            className="cursor-pointer px-4 py-2 text-sm text-white hover:text-yellow! hover:bg-yellow/10 focus:bg-yellow/10 data-[state=checked]:text-yellow data-[state=checked]:font-bold transition-colors rounded "
           >
             {option.label}
           </SelectItem>

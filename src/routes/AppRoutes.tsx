@@ -1,23 +1,20 @@
 import App from "@/App";
 
-import AdminLayout from "@/layout/AdminLayout";
-import Home from "@/pages/Home";
-import QuoteWizard from "@/pages/QuoteWizard";
 import About from "@/pages/About";
-import ServicesPage from "@/pages/ServicesPage";
-import Realtors from "@/pages/Realtors";
 import Contact from "@/pages/Contact";
+import Home from "@/pages/Home";
 import Login from "@/pages/Login";
-import AdminDashboard from "@/pages/AdminDashboard";
+import NotFound from "@/pages/NotFound";
+import QuoteWizard from "@/pages/QuoteWizard";
+import Realtors from "@/pages/Realtors";
+import ServicesPage from "@/pages/ServicesPage";
 import { createBrowserRouter } from "react-router-dom";
-import ProtectedRoute from "./ProtectedRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      // public routes
       {
         index: true,
         element: <Home />,
@@ -25,10 +22,6 @@ const router = createBrowserRouter([
       {
         path: "quote",
         element: <QuoteWizard />,
-      },
-      {
-        path: "about",
-        element: <About />,
       },
       {
         path: "services",
@@ -39,6 +32,10 @@ const router = createBrowserRouter([
         element: <Realtors />,
       },
       {
+        path: "about",
+        element: <About />,
+      },
+      {
         path: "contact",
         element: <Contact />,
       },
@@ -46,17 +43,9 @@ const router = createBrowserRouter([
         path: "login",
         element: <Login />,
       },
-
-      // protected routes
       {
-        path: "admin",
-        element: <ProtectedRoute />,
-        children: [
-          {
-            element: <AdminLayout />,
-            children: [{ index: true, element: <AdminDashboard /> }],
-          },
-        ],
+        path: "*",
+        element: <NotFound />,
       },
     ],
   },

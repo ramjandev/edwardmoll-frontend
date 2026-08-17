@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import React from "react";
-import { LuCirclePlus } from "react-icons/lu";
+import { BsFillTelephoneFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import ButtonWithLoading from "./ButtonWithLoading";
 
@@ -9,7 +9,7 @@ const BASE_STYLE =
 
 const SHAPE_STYLE = {
   pill: "rounded-full",
-  rounded: "rounded-2xl",
+  rounded: "rounded-md",
 } as const;
 
 const SIZE_STYLE = {
@@ -21,10 +21,11 @@ const SIZE_STYLE = {
 } as const;
 
 const VARIANT_STYLE = {
-  primary: "bg-gradient-to-b from-[#0D538F] to-[#0E273C] text-white ",
-  primaryBlue: "bg-[#155DFC] text-white hover:opacity-90 ",
-  primaryGreen: "bg-[#00A63E] text-white hover:opacity-90 ",
-  outline: "text-primary-green border-2 border-primary-green hover:bg-green-50",
+  primary: "bg-yellow hover:opacity-90 text-black ",
+  primaryWhite: "bg-yellow text-white hover:opacity-90",
+  primaryGreen: "bg-[#00A63E] text-white hover:opacity-90",
+  outline:
+    "text-yellow border-2 border-yellow hover:bg-yellow hover:text-white",
   outlineBlue: "text-[#155DFC] border-2 border-[#155DFC] hover:bg-[#155DFC]/10",
   destructive: "bg-red-500 text-white shadow-sm hover:opacity-90",
   secondary:
@@ -43,6 +44,7 @@ interface CommonButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement
   rightIcon?: React.ReactNode;
   showDefaultIcon?: boolean;
   to?: string;
+  href?: string;
   isLoading?: boolean;
   loadingText?: string;
 }
@@ -58,6 +60,7 @@ const CommonButton: React.FC<CommonButtonProps> = ({
   showDefaultIcon = false,
   type = "button",
   to,
+  href,
   disabled,
   isLoading = false,
   loadingText = "Loading...",
@@ -77,11 +80,26 @@ const CommonButton: React.FC<CommonButtonProps> = ({
     <ButtonWithLoading title={loadingText} />
   ) : (
     <>
-      {leftIcon ?? (showDefaultIcon && <LuCirclePlus />)}
+      {leftIcon ?? (showDefaultIcon && <BsFillTelephoneFill />)}
       {children}
       {rightIcon}
     </>
   );
+
+  if (href) {
+    return (
+      <a
+        href={href}
+        className={clsx(
+          classes,
+          isDisabled && "pointer-events-none opacity-50",
+        )}
+        aria-disabled={isDisabled}
+      >
+        {content}
+      </a>
+    );
+  }
 
   if (to) {
     return (

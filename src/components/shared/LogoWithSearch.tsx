@@ -1,7 +1,7 @@
 import logo from "@/assets/images/logo.png";
 import { useGetMeQuery } from "@/store/Auth/authApi";
 import { FaArrowLeft } from "react-icons/fa6";
-import CommonHeader from "../shared/CommonHeader";
+import CommonHeader from "./header/CommonHeader";
 
 const LogoWithSearch = () => {
   const { data } = useGetMeQuery();

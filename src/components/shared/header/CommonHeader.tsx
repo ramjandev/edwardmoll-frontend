@@ -17,9 +17,9 @@ const CommonHeader: React.FC<CommonHeaderProps> = ({
 
   // Fixed leading for each size
   const sizeStyles: Record<typeof size, string> = {
-    xs: "text-xs leading-4 text-[#6A7282] ",
-    sm: "text-sm leading-5 font-normal text-[#45556C] ",
-    md: "text-base leading-6 text-gray font-normal ",
+    xs: "text-xs leading-4 text-yellow ",
+    sm: "text-sm leading-5 font-normal text-yellow ",
+    md: "text-base leading-6 text-yellow font-normal ",
     lg: "text-sm sm:text-lg leading-5 sm:leading-7 font-medium text-[#0F172B]",
     xl: "text-xl leading-8 font-bold text-[#0F172B]",
     "2xl":

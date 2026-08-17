@@ -14,7 +14,7 @@ interface FileUploadProps {
 }
 
 const inputClass = {
-  label: "text-xs font-semibold text-slate-300 block mb-1",
+  label: "text-xs font-semibold text-offYellow block mb-1",
 };
 
 const configMap: Record<

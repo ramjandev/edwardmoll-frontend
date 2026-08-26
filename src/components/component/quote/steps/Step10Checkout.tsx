@@ -1,9 +1,7 @@
 import CommonButton from "@/components/shared/button/CommonButton";
 import SectionHeader from "@/components/shared/header/SectionHeader";
-import { Elements } from "@stripe/react-stripe-js";
 import { IoIosArrowRoundBack } from "react-icons/io";
-import StripeCheckoutForm from "../StripeCheckoutForm";
-import { stripePromise } from "../stripeClient";
+import JobberPaymentPanel from "../JobberPaymentPanel";
 
 interface Props {
   bookingResult: any;
@@ -15,8 +13,8 @@ const Step10Checkout = ({ bookingResult, onBack, onSuccess }: Props) => {
   return (
     <div className="space-y-6 ">
       <SectionHeader
-        title="Secure slot"
-        des="Process deposit to schedule trucks and crew."
+        title="Secure your slot"
+        des="Pay your deposit through Jobber to schedule trucks and crew."
       />
 
       <div className="rounded border border-yellow/20 bg-[#071425]/80 p-5 space-y-2 text-sm text-offYellow">
@@ -27,20 +25,25 @@ const Step10Checkout = ({ bookingResult, onBack, onSuccess }: Props) => {
           </span>
         </div>
         <div className="flex justify-between">
-          <span>30% Deposit Charge:</span>
+          <span>30% Deposit Due:</span>
           <span className="font-black text-yellow">
             ${Number(bookingResult.depositAmount).toFixed(2)}
           </span>
         </div>
+        <div className="flex justify-between">
+          <span>Balance After Move:</span>
+          <span className="font-bold text-white">
+            ${Number(bookingResult.balanceAmount).toFixed(2)}
+          </span>
+        </div>
       </div>
 
-      <Elements stripe={stripePromise}>
-        <StripeCheckoutForm
-          bookingId={bookingResult.bookingId || bookingResult.id}
-          amount={Number(bookingResult.depositAmount)}
-          onSuccess={onSuccess}
-        />
-      </Elements>
+      <JobberPaymentPanel
+        bookingId={bookingResult.bookingId || bookingResult.id}
+        amount={Number(bookingResult.depositAmount)}
+        initialPaymentUrl={bookingResult.paymentUrl}
+        onSuccess={onSuccess}
+      />
 
       <CommonButton onClick={onBack} variant="outline" className="w-full!">
         <IoIosArrowRoundBack />

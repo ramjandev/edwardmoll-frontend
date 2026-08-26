@@ -194,9 +194,9 @@ const Step9BookingForm: React.FC<Props> = ({
                 </h3>
 
                 <p className="mt-2 text-sm leading-relaxed text-offYellow">
-                  Online deposit and final invoice payment are coming soon. For
-                  now, no payment is required to reserve your date. We'll
-                  confirm your flat rate by phone.
+                  On the next step you'll pay a 30% deposit through Jobber, our
+                  secure scheduling and payment provider, to lock in your date.
+                  The remaining balance is invoiced after your move is complete.
                 </p>
               </div>
             </div>
@@ -209,8 +209,8 @@ const Step9BookingForm: React.FC<Props> = ({
           </div>
 
           <p className="text-center text-xs text-offYellow/70">
-            No payment required today • We'll contact you to confirm your
-            reservation
+            Your date is held once the deposit is received • Paid securely
+            through Jobber
           </p>
         </form>
       </div>

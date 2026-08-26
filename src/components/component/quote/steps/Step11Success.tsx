@@ -13,9 +13,9 @@ const Step11Success = ({ onReturnHome }: Props) => {
         <RxCheck className="size-10 text-[#0D1D32] " />
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-2 flex flex-col items-center">
         <SectionHeader
-          title="  Move Scheduled!"
+          title="Move Scheduled!"
           des="Thank you! Your 30% deposit has been securely charged via Stripe. Your
           slot is officially reserved, and details have been synced to Jobber."
         />

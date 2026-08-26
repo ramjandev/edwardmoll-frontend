@@ -54,7 +54,7 @@ const Navbar = () => {
 
           <div className="hidden lg:block">
             <motion.div
-              className="relative"
+              className="relative w-full"
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
             >

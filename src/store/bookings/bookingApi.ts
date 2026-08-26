@@ -19,6 +19,10 @@ export interface BookingResponse {
   totalAmount: number;
   status: string;
   requestedDate: string;
+  /** Jobber Client Hub link for the deposit invoice. */
+  paymentUrl: string | null;
+  /** Set when the Jobber invoice could not be raised at booking time. */
+  invoiceError: string | null;
   customer: {
     firstName: string;
     lastName: string;
@@ -35,7 +39,10 @@ export interface BookingLogItem {
   balanceAmount: string;
   totalAmount: string;
   jobberJobId: string | null;
-  stripePaymentMethodId: string | null;
+  depositInvoiceId: string | null;
+  depositInvoiceUrl: string | null;
+  balanceInvoiceId: string | null;
+  balanceInvoiceUrl: string | null;
   createdAt: string;
   customer: {
     firstName: string;
@@ -60,8 +67,11 @@ export interface BookingLogItem {
     id: string;
     type: string;
     status: string;
+    method: string;
     amount: string;
-    stripePaymentIntentId: string;
+    jobberInvoiceId: string | null;
+    jobberInvoiceNumber: string | null;
+    clientHubUri: string | null;
     paidAt: string | null;
   }>;
 }
@@ -76,34 +86,36 @@ export const bookingAPI = baseAPI.injectEndpoints({
         method: "POST",
         body: data,
       }),
-      transformResponse: (response: ApiResponse<BookingResponse>) => response.data,
+      transformResponse: (response: ApiResponse<BookingResponse>) =>
+        response.data,
     }),
     getBookings: build.query<BookingLogItem[], void>({
       query: () => ({
         url: "/bookings",
         method: "GET",
       }),
-      transformResponse: (response: ApiResponse<BookingLogItem[]>) => response.data,
+      transformResponse: (response: ApiResponse<BookingLogItem[]>) =>
+        response.data,
       providesTags: ["Job"], // Reuses Job tag to force list refresh on update
     }),
-    mockPaySuccess: build.mutation<{ message: string; booking: any }, string>({
+    simulateDepositPaid: build.mutation<any, string>({
       query: (id) => ({
-        url: `/bookings/${id}/mock-pay-success`,
+        url: `/bookings/${id}/simulate-deposit-paid`,
         method: "POST",
       }),
-      transformResponse: (response: ApiResponse<{ message: string; booking: any }>) => response.data,
+      transformResponse: (response: ApiResponse<any>) => response.data,
       invalidatesTags: ["Job"],
     }),
-    simulateJobComplete: build.mutation<{ processed: boolean; result?: any }, string>({
+    simulateJobComplete: build.mutation<any, string>({
       query: (jobberJobId) => ({
         url: "/bookings/jobber-webhook",
         method: "POST",
         body: {
-          topic: "JOB_COMPLETED",
+          topic: "JOB_CLOSED",
           resourceId: jobberJobId,
         },
       }),
-      transformResponse: (response: ApiResponse<{ processed: boolean; result?: any }>) => response.data,
+      transformResponse: (response: ApiResponse<any>) => response.data,
       invalidatesTags: ["Job"],
     }),
     completeOffline: build.mutation<{ message: string; booking: any }, string>({
@@ -111,7 +123,9 @@ export const bookingAPI = baseAPI.injectEndpoints({
         url: `/bookings/${id}/complete-offline`,
         method: "POST",
       }),
-      transformResponse: (response: ApiResponse<{ message: string; booking: any }>) => response.data,
+      transformResponse: (
+        response: ApiResponse<{ message: string; booking: any }>,
+      ) => response.data,
       invalidatesTags: ["Job"],
     }),
   }),
@@ -120,7 +134,7 @@ export const bookingAPI = baseAPI.injectEndpoints({
 export const {
   useCreateBookingMutation,
   useGetBookingsQuery,
-  useMockPaySuccessMutation,
+  useSimulateDepositPaidMutation,
   useSimulateJobCompleteMutation,
   useCompleteOfflineMutation,
 } = bookingAPI;

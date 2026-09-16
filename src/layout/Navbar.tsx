@@ -12,8 +12,9 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 
 export const navItems = [
   { label: "Home", path: "/" },
-  { label: "Instant Quote", path: "/quote" },
   { label: "Services", path: "/services" },
+  { label: "Gallery", path: "/gallery" },
+  { label: "Updates", path: "/updates" },
   { label: "Realtors & Leasing", path: "/realtors" },
   { label: "About", path: "/about" },
   { label: "Contact", path: "/contact" },

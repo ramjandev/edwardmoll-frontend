@@ -53,11 +53,32 @@ const baseQueryWithToasts: typeof baseQueryAPI = async (
 
       if (isSessionExpired) {
       } else {
+        const networkDown =
+          result.error.status === "FETCH_ERROR" ||
+          result.error.status === "TIMEOUT_ERROR";
         toast.error(
-          errorData?.message || "Something went wrong. Please try again.",
+          networkDown
+            ? "Cannot reach the API at " +
+                (import.meta.env.VITE_API_URL || "the backend") +
+                ". Start the backend (port 3000) and try again."
+            : errorData?.message || "Something went wrong. Please try again.",
         );
       }
     }
+  }
+
+  // If response is wrapped by NestJS TransformInterceptor ({ statusCode, success, data }),
+  // unwrap the inner data so RTK Query hooks receive the direct model/array payload
+  if (
+    result?.data &&
+    typeof result.data === "object" &&
+    "data" in result.data &&
+    ("statusCode" in result.data || "success" in result.data)
+  ) {
+    return {
+      ...result,
+      data: (result.data as any).data,
+    };
   }
 
   return result;
@@ -86,6 +107,11 @@ export const baseAPI = createApi({
     "InvoiceInformation",
     "PaymentTerm",
     "WhatsAppConversation",
+    "Service",
+    "Gallery",
+    "Post",
+    "Inquiry",
+    "Dashboard"
   ],
 
   endpoints: () => ({}),

@@ -37,8 +37,8 @@ const PhoneActionButton = () => {
           />
         </motion.div>
 
-        <CommonButton size="xl" to="/quote">
-          Build My Instant Quote
+        <CommonButton size="xl" to="/contact">
+          Contact Us
         </CommonButton>
       </motion.div>
       <motion.div

@@ -51,8 +51,8 @@ const BannerCTA = () => {
             />
           </motion.div>
 
-          <CommonButton size="xl" to="/quote">
-            Build My Instant Quote
+          <CommonButton size="xl" to="/contact">
+            Contact Us
           </CommonButton>
         </motion.div>
       </div>

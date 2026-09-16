@@ -60,7 +60,7 @@ const MoveSection = () => {
 
           <div className="text-center pt-2">
             <span
-              onClick={() => navigate("/quote")}
+              onClick={() => navigate("/services")}
               className="text-xs font-black text-yellow hover:underline cursor-pointer uppercase tracking-widest"
             >
               See All Services →

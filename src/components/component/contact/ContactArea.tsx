@@ -1,8 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { z } from "zod";
+import { toast } from "react-toastify";
+import CommonButton from "@/components/shared/button/CommonButton";
+import CommonWrapper from "@/components/shared/CommonWrapper";
+import CommonSpace from "@/components/shared/space/CommonSpace";
+import { Clock3, Mail, MapPin, Phone } from "lucide-react";
+import { useSubmitInquiryMutation } from "@/store/contact/contactApi";
 
 const contactSchema = z.object({
   name: z.string().trim().min(2, { message: "Name is required." }),
@@ -13,11 +18,12 @@ const contactSchema = z.object({
 
 type ContactFields = z.infer<typeof contactSchema>;
 
-import CommonButton from "@/components/shared/button/CommonButton";
-import CommonWrapper from "@/components/shared/CommonWrapper";
-import CommonSpace from "@/components/shared/space/CommonSpace";
-import { Clock3, Mail, MapPin, Phone } from "lucide-react";
-import { inputClass } from "../quote/steps/Step9BookingForm";
+const inputClass = {
+  label: "block text-xs font-bold uppercase tracking-wider text-offYellow mb-1",
+  input:
+    "w-full rounded bg-[#071425] border border-yellow/20 px-3 py-2 text-sm text-white placeholder-slate-500 focus:border-yellow focus:outline-none focus:ring-1 focus:ring-yellow transition-all",
+  error: "text-xs text-red-500 mt-1 font-semibold",
+};
 
 const contactInfo = [
   {
@@ -49,8 +55,9 @@ const contactInfo = [
     valueClassName: "text-xs font-semibold text-slate-200",
   },
 ];
+
 const ContactArea = () => {
-  const navigate = useNavigate();
+  const [submitInquiry, { isLoading }] = useSubmitInquiryMutation();
 
   const {
     register,
@@ -67,10 +74,16 @@ const ContactArea = () => {
     },
   });
 
-  const onSubmitMessage = (data: ContactFields) => {
-    reset();
-    console.log("data", data);
+  const onSubmitMessage = async (data: ContactFields) => {
+    try {
+      await submitInquiry(data).unwrap();
+      toast.success("Message sent successfully!");
+      reset();
+    } catch (err) {
+      toast.error("Failed to send message. Please try again.");
+    }
   };
+
   return (
     <section className="">
       <CommonSpace style="bottom">
@@ -117,13 +130,7 @@ const ContactArea = () => {
                   Send Us A Message
                 </h3>
                 <p className="text-base text-offYellow font-medium mt-1">
-                  Prefer an instant price? Skip this and{" "}
-                  <span
-                    onClick={() => navigate("/quote")}
-                    className="text-yellow hover:underline cursor-pointer"
-                  >
-                    build your quote.
-                  </span>
+                  We'll get back to you as soon as possible.
                 </p>
               </div>
 
@@ -193,36 +200,8 @@ const ContactArea = () => {
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.97 }}
                   >
-                    {/* Animated glow */}
-                    <motion.div
-                      className="absolute -inset-1 rounded-md blur-md pointer-events-none"
-                      animate={{
-                        opacity: [0.2, 0.7, 0.2],
-                        scale: [0.95, 1.05, 0.95],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                      }}
-                    />
-
-                    {/* Shine sweep */}
-                    <motion.div className="absolute inset-0 overflow-hidden rounded-md pointer-events-none">
-                      <motion.div
-                        className="absolute top-0 -left-[100%] h-full w-[60%] skew-x-[-20deg] bg-white/20"
-                        animate={{ left: ["-100%", "160%"] }}
-                        transition={{
-                          duration: 2.5,
-                          repeat: Infinity,
-                          repeatDelay: 1.5,
-                          ease: "easeInOut",
-                        }}
-                      />
-                    </motion.div>
-
-                    <CommonButton size="xl" type="submit" className="w-full!">
-                      Send message
+                    <CommonButton size="xl" type="submit" className="w-full!" disabled={isLoading}>
+                      {isLoading ? "Sending..." : "Send message"}
                     </CommonButton>
                   </motion.div>
                 </div>

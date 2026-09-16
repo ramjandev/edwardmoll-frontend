@@ -10,7 +10,6 @@ import {
   REHYDRATE,
 } from "redux-persist";
 import authReducer from "./Auth/authSlice";
-import bookingFlowReducer from "./Booking/bookingSlice";
 import { baseAPI } from "./BaseApi/baseAPI";
 
 import * as storageModule from "redux-persist/lib/storage";
@@ -30,7 +29,6 @@ export const store = configureStore({
   reducer: {
     [baseAPI.reducerPath]: baseAPI.reducer,
     auth: persistedReducer,
-    bookingFlow: bookingFlowReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

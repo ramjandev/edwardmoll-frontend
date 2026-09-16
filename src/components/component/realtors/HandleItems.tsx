@@ -71,7 +71,7 @@ const HandleItems = () => {
                 title={item.title}
                 description={item.description}
                 icon={item.icon}
-                onClick={() => navigate("/quote")}
+                onClick={() => navigate("/contact")}
               />
             ))}
           </div>
